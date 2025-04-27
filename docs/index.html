@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>宁艺卓购刊指引</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 1rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      background: #fafafa;
+      text-align: center;
+    }
+    #container {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 400px;
+      padding: 1rem;
+    }
+    #back-btn {
+      display: none;
+      margin-bottom: 1rem;
+    }
+    #back-btn button {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+      cursor: pointer;
+      border: none;
+      background: none;
+      color: #333;
+    }
+    h1 {
+      font-size: 1.5rem;
+      margin-bottom: 0.75rem;
+    }
+    img.cover {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 4px;
+      margin-bottom: 1rem;
+    }
+    button, a {
+      display: block;
+      width: 100%;
+      box-sizing: border-box;
+      margin: 0.5rem 0;
+      padding: 0.75rem 1rem;
+      font-size: 1rem;
+      cursor: pointer;
+      border: 1px solid #333;
+      border-radius: 4px;
+      background: none;
+      text-decoration: none;
+      color: #333;
+    }
+    .image-row {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin: 0.5rem 0;
+    }
+    .image-row img {
+      width: 48%;
+      height: auto;
+      border-radius: 4px;
+    }
+    @media (max-width: 600px) {
+      #container {
+        max-width: 100%;
+      }
+      button, a, .image-row img {
+        width: 100%;
+      }
+      .image-row {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="container"></div>
+  <script>
+    const container = document.getElementById('container');
+    let backBtn;
+    const createBackBtn = () => `<div id="back-btn"><button onclick="showInitial()">返回</button></div>`;
+    const initialContent = `
+      <h1>宁艺卓首封内娱五大杂志 ELLE 六月刊购买指南</h1>
+      <img class="cover" src="IMG_0124.jpeg" alt="ELLE 六月刊封面">
+      <div id="question">
+        <p>你是否需要实体杂志？</p>
+        <button onclick="needPhysical(true)">是</button>
+        <button onclick="needPhysical(false)">否</button>
+      </div>
+    `;
+    function showInitial() {
+      container.innerHTML = createBackBtn() + initialContent;
+      backBtn = document.getElementById('back-btn');
+      backBtn.style.display = 'none';
+    }
+    function needPhysical(answer) {
+      container.innerHTML = createBackBtn();
+      backBtn = document.getElementById('back-btn');
+      backBtn.style.display = 'block';
+      let content;
+      if (!answer) {
+        content = `
+          <h2>你适合支持地投</h2>
+          <h2>Q&A：</h2>
+          <p><strong>Q：什么是地投？</strong><br>
+          A：可以理解为不运回，个人不收货，杂志集体运到仓库，由08统一安排投放。</p><br>
+          <p><strong>Q：地投比实体有什么好处？</strong><br>
+          A：500本包邮，08统一下单可节省邮费，用更多资金下单更多杂志。</p>
+          <a href="https://k.youshop10.com/dV-ZoPv9?a=b&p=iphone&wfr=BuyercopyURL&share_relation=a2d298f85014b0a5_1762354368_1" target="_blank">地投链接</a><br>
+          <p><strong>Q：参与地投有赠品吗？</strong><br>
+          A：08设置了阶梯地投满赠礼，包含纪念版典藏小卡和站姐全新未公开PB。</p>
+          <a href="https://weibo.com/5647062707/5160011539681521" target="_blank">赠礼详情</a>
+        `;
+      } else {
+        content = `
+          <p>开售时（预计5月16日）你能否准时购买？</p>
+          <button onclick="buyOnTime(true)">能</button>
+          <button onclick="buyOnTime(false)">不能</button>
+        `;
+      }
+      container.innerHTML += content;
+    }
+    function buyOnTime(answer) {
+      container.innerHTML = createBackBtn();
+      backBtn = document.getElementById('back-btn');
+      backBtn.style.display = 'block';
+      let content;
+      if (answer) {
+        content = `
+          <h2>你适合等待官方链接进行购买</h2>
+          <p>官方链接预计开售前一天释出，</p>
+          <p> 请关注以下账号获得最新消息：</p>
+          <div class="image-row">
+            <img src="IMG_0119.jpeg" alt="微博宁艺卓吧截图">
+            <img src="IMG_0120.jpeg" alt="笑得田米米截图">
+          </div>
+          <br>
+          <p>等待期间欢迎你支持地投。</p>
+          <a href="#" onclick="needPhysical(false);return false;">欢迎支持地投</a>
+        `;
+      } else {
+        content = `
+          <h2>你适合提前代买</h2>
+          <p>08已在微店推出代买套餐，您可以以原价在微店提前下单并填写收货地址。</p>
+          <p>开售后，08将代您完成购买并寄送至所填地址。</p>
+          <p>代买完成后，无需额外操作，静待杂志送达即可。</p>
+          <a href="链接3">代买链接</a>
+        `;
+      }
+      container.innerHTML += content;
+    }
+    // 初始显示
+    showInitial();
+  </script>
+</body>
+</html>
